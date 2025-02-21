@@ -22,6 +22,19 @@ exports.getAllNotes = async (req, res) => {
   }
 };
 
+// Retrieve a single note by ID
+exports.getNoteById = async (req, res) => {
+  try {
+    const note = await Note.findById(req.params.id);
+    if (!note) {
+      return res.status(404).json({ message: "Note NOT FOUND" });
+    }
+    res.status(200).json(note);
+  } catch (error) {
+    res.status(500).json({ message: "ERROR FETCHING Note", error: error.message });
+  }
+};
+
 // Update a note
 exports.updateNote = async (req, res) => {
     try {
